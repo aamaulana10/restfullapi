@@ -1,5 +1,6 @@
 package com.aamaulana.restfullapi.jurusan.controller;
 
+import com.aamaulana.restfullapi.jurusan.dto.JurusanDTO;
 import com.aamaulana.restfullapi.jurusan.model.Jurusan;
 import com.aamaulana.restfullapi.jurusan.service.JurusanService;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,7 +19,7 @@ public class JurusanController {
     private JurusanService jurusanService;
 
     @GetMapping
-    public ResponseEntity<List<Jurusan>> getAllJurusan() {
+    public ResponseEntity<List<JurusanDTO>> getAllJurusan() {
         try {
             return ResponseEntity.ok(jurusanService.getAllJurusan());
         }catch (Exception e) {

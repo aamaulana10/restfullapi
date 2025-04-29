@@ -1,5 +1,7 @@
 package com.aamaulana.restfullapi.jurusan.service;
 
+import com.aamaulana.restfullapi.jurusan.dto.JurusanDTO;
+import com.aamaulana.restfullapi.jurusan.mapper.JurusanMapper;
 import com.aamaulana.restfullapi.jurusan.model.Jurusan;
 import com.aamaulana.restfullapi.jurusan.repository.JurusanRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,8 +16,10 @@ public class JurusanService {
     @Autowired
     private JurusanRepository jurusanRepository;
 
-    public List<Jurusan> getAllJurusan() {
-        return jurusanRepository.findAll();
+    public List<JurusanDTO> getAllJurusan() {
+        return jurusanRepository.findAll().stream()
+                .map(JurusanMapper::toDTO)
+                .toList();
     }
 
     public Jurusan getJurusanById(Long id) {
