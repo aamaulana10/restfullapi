@@ -1,7 +1,7 @@
 package com.aamaulana.restfullapi.jurusan.controller;
 
-import com.aamaulana.restfullapi.jurusan.dto.JurusanDTO;
-import com.aamaulana.restfullapi.jurusan.model.Jurusan;
+import com.aamaulana.restfullapi.jurusan.dto.JurusanRequestDTO;
+import com.aamaulana.restfullapi.jurusan.dto.JurusanResponseDTO;
 import com.aamaulana.restfullapi.jurusan.service.JurusanService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class JurusanController {
     private JurusanService jurusanService;
 
     @GetMapping
-    public ResponseEntity<List<JurusanDTO>> getAllJurusan() {
+    public ResponseEntity<List<JurusanResponseDTO>> getAllJurusan() {
         try {
             return ResponseEntity.ok(jurusanService.getAllJurusan());
         }catch (Exception e) {
@@ -29,7 +29,7 @@ public class JurusanController {
     }
 
     @GetMapping("/id={id}")
-    public ResponseEntity<Jurusan> getJurusanById(@PathVariable Long id) {
+    public ResponseEntity<JurusanResponseDTO> getJurusanById(@PathVariable Long id) {
         System.out.println("id ====> " + id);
         try {
             return ResponseEntity.ok(jurusanService.getJurusanById(id));
@@ -40,7 +40,7 @@ public class JurusanController {
     }
 
     @GetMapping("/name={name}")
-    public ResponseEntity<Jurusan> getJurusanByName(@PathVariable String name) {
+    public ResponseEntity<JurusanResponseDTO> getJurusanByName(@PathVariable String name) {
         System.out.println("name ====> " + name);
         var lowerCaseQuery = name.toLowerCase();
         try {
@@ -52,11 +52,9 @@ public class JurusanController {
     }
 
     @GetMapping("/query={query}")
-    public ResponseEntity<List<Jurusan>> getJurusanByQuery(@PathVariable String query) {
-        System.out.println("query ====> " + query);
-        var lowerCaseQuery = query.toLowerCase();
+    public ResponseEntity<List<JurusanResponseDTO>> getJurusanByQuery(@PathVariable String query) {
         try {
-            return ResponseEntity.ok(jurusanService.getJurusanByQuery(lowerCaseQuery));
+            return ResponseEntity.ok(jurusanService.getJurusanByQuery(query));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -64,9 +62,9 @@ public class JurusanController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createJurusan(@RequestBody Jurusan jurusan) {
+    public ResponseEntity<String> createJurusan(@RequestBody JurusanRequestDTO request) {
         try {
-            jurusanService.createJurusan(jurusan);
+            jurusanService.createJurusan(request);
             return ResponseEntity.ok("success");
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -74,10 +72,10 @@ public class JurusanController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Jurusan> updateJurusan(@PathVariable Long id, @RequestBody Jurusan jurusan) {
+    public ResponseEntity<String> updateJurusan(@PathVariable Long id, @RequestBody JurusanRequestDTO request) {
         try {
-            var result = jurusanService.updateJurusan(id, jurusan);
-            return ResponseEntity.ok(result);
+            jurusanService.updateJurusan(id, request);
+            return ResponseEntity.ok("success update jurusan with id " + id);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

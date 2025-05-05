@@ -1,9 +1,11 @@
 package com.aamaulana.restfullapi.jurusan.service;
 
-import com.aamaulana.restfullapi.jurusan.dto.JurusanDTO;
+import com.aamaulana.restfullapi.jurusan.dto.JurusanRequestDTO;
+import com.aamaulana.restfullapi.jurusan.dto.JurusanResponseDTO;
 import com.aamaulana.restfullapi.jurusan.mapper.JurusanMapper;
 import com.aamaulana.restfullapi.jurusan.model.Jurusan;
 import com.aamaulana.restfullapi.jurusan.repository.JurusanRepository;
+import com.aamaulana.restfullapi.mahasiswa.mapper.MahasiswaMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,25 +18,32 @@ public class JurusanService {
     @Autowired
     private JurusanRepository jurusanRepository;
 
-    public List<JurusanDTO> getAllJurusan() {
+    public List<JurusanResponseDTO> getAllJurusan() {
         return jurusanRepository.findAll().stream()
                 .map(JurusanMapper::toDTO)
                 .toList();
     }
 
-    public Jurusan getJurusanById(Long id) {
-        return jurusanRepository.findById(id).orElseThrow();
+    public JurusanResponseDTO getJurusanById(Long id) {
+        return JurusanMapper.toDTO(jurusanRepository.findById(id).orElseThrow());
     }
 
-    public Jurusan getJurusanByName(String name) {
-        return jurusanRepository.getJurusanByName(name);
+    public JurusanResponseDTO getJurusanByName(String name) {
+        return JurusanMapper.toDTO(jurusanRepository.getJurusanByName(name));
     }
 
-    public List<Jurusan>  getJurusanByQuery(String query) {
-        return jurusanRepository.getByNameContaining(query);
+    public List<JurusanResponseDTO>  getJurusanByQuery(String query) {
+        return jurusanRepository.getByNameContaining(query).stream()
+                .map(JurusanMapper::toDTO)
+                .toList();
     }
 
-    public void createJurusan(Jurusan jurusan) {
+    public void createJurusan(JurusanRequestDTO requestDTO) {
+
+        Jurusan jurusan = Jurusan.builder()
+                            .name(requestDTO.getJurusanName())
+                            .build();
+
         jurusanRepository.save(jurusan);
     }
 
@@ -45,11 +54,11 @@ public class JurusanService {
         jurusanRepository.deleteById(id);
     }
 
-    public Jurusan updateJurusan(Long id, Jurusan jurusan) {
+    public void updateJurusan(Long id, JurusanRequestDTO requestDTO) {
         Jurusan newJurusan = jurusanRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Jurusan dengan ID " + id + " tidak ditemukan."));
 
-        newJurusan.setName(jurusan.getName());
-        return jurusanRepository.save(newJurusan);
+        newJurusan.setName(requestDTO.getJurusanName());
+        jurusanRepository.save(newJurusan);
     }
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JurusanDTO {
+public class JurusanResponseDTO {
     Long id;
     String jurusanName;
 }
