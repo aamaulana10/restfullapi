@@ -4,6 +4,7 @@ import com.aamaulana.restfullapi.common.response.ApiResponse;
 import com.aamaulana.restfullapi.mahasiswa.dto.MahasiswaRequestDTO;
 import com.aamaulana.restfullapi.mahasiswa.dto.MahasiswaResponseDTO;
 import com.aamaulana.restfullapi.mahasiswa.service.MahasiswaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Mahasiswa Controller", description = "CRUD for mahasiswa")
 @RestController
 @RequestMapping("api/mahasiswa")
 public class MahasiswaController {
