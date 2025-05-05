@@ -29,10 +29,10 @@ The project follows the **Clean Architecture** structure, which divides the appl
 ## Database Structure
 
 - **Jurusan**: Represents academic departments in the university.
-  - Fields: id, name, description, etc.
+  - Fields: id, name, etc.
 
 - **Mahasiswa**: Represents students in the university.
-  - Fields: id, name, department_id (foreign key to `Jurusan`), etc.
+  - Fields: id, name, jurusan_id (foreign key to `Jurusan`), etc.
 
 ---
 
