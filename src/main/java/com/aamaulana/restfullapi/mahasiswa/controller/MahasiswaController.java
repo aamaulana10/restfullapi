@@ -4,9 +4,8 @@ import com.aamaulana.restfullapi.common.response.ApiResponse;
 import com.aamaulana.restfullapi.mahasiswa.dto.MahasiswaRequestDTO;
 import com.aamaulana.restfullapi.mahasiswa.dto.MahasiswaResponseDTO;
 import com.aamaulana.restfullapi.mahasiswa.service.MahasiswaService;
-import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,13 +34,13 @@ public class MahasiswaController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<String>> createMahasiswa(@RequestBody MahasiswaRequestDTO request) {
+    public ResponseEntity<ApiResponse<String>> createMahasiswa(@RequestBody @Valid MahasiswaRequestDTO request) {
         mahasiswaService.createMahasiswa(request);
         return ResponseEntity.ok(new ApiResponse<>(true, "success", "success create new data Mahasiswa"));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<String>> updateMahasiswa(@PathVariable Long id, @RequestBody MahasiswaRequestDTO requestDTO) {
+    public ResponseEntity<ApiResponse<String>> updateMahasiswa(@PathVariable Long id, @RequestBody @Valid MahasiswaRequestDTO requestDTO) {
         mahasiswaService.updateMahasiswa(id, requestDTO);
         return ResponseEntity.ok(new ApiResponse<>(true, "success", "success update Mahasiswa with id " + id));
     }

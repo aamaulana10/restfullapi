@@ -4,6 +4,7 @@ import com.aamaulana.restfullapi.common.response.ApiResponse;
 import com.aamaulana.restfullapi.jurusan.dto.JurusanRequestDTO;
 import com.aamaulana.restfullapi.jurusan.dto.JurusanResponseDTO;
 import com.aamaulana.restfullapi.jurusan.service.JurusanService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,13 +40,13 @@ public class JurusanController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<String>> createJurusan(@RequestBody JurusanRequestDTO request) {
+    public ResponseEntity<ApiResponse<String>> createJurusan(@RequestBody @Valid JurusanRequestDTO request) {
         jurusanService.createJurusan(request);
         return ResponseEntity.ok(new ApiResponse<>(true, "success", request.toString()));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<String>> updateJurusan(@PathVariable Long id, @RequestBody JurusanRequestDTO request) {
+    public ResponseEntity<ApiResponse<String>> updateJurusan(@PathVariable Long id, @RequestBody @Valid JurusanRequestDTO request) {
         jurusanService.updateJurusan(id, request);
         return ResponseEntity.ok(new ApiResponse<>(true, "success update jurusan with id" + id, request.toString()));
     }
