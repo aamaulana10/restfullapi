@@ -1,5 +1,4 @@
 package com.aamaulana.restfullapi.jurusan.model;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,8 +12,5 @@ public class Jurusan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
-//    @OneToMany(mappedBy = "jurusan", cascade = CascadeType.ALL)
-//    private List<Mahasiswa> mahasiswas;
 
 }
