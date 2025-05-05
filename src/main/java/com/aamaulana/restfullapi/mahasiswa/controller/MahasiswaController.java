@@ -1,5 +1,6 @@
 package com.aamaulana.restfullapi.mahasiswa.controller;
 
+import com.aamaulana.restfullapi.common.response.ApiResponse;
 import com.aamaulana.restfullapi.mahasiswa.dto.MahasiswaRequestDTO;
 import com.aamaulana.restfullapi.mahasiswa.dto.MahasiswaResponseDTO;
 import com.aamaulana.restfullapi.mahasiswa.service.MahasiswaService;
@@ -19,66 +20,36 @@ public class MahasiswaController {
     private MahasiswaService mahasiswaService;
 
     @GetMapping
-    public ResponseEntity<List<MahasiswaResponseDTO>> getAllMahasiswa() {
-        try {
-            return ResponseEntity.ok(mahasiswaService.getAllMahasiswa());
-        }catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+    public ResponseEntity<ApiResponse<List<MahasiswaResponseDTO>>> getAllMahasiswa() {
+        return ResponseEntity.ok(new ApiResponse<>(true, "success", mahasiswaService.getAllMahasiswa()));
     }
 
     @GetMapping("/id={id}")
-    public ResponseEntity<MahasiswaResponseDTO> getMahasiswaById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(mahasiswaService.getMahasiswaById(id));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+    public ResponseEntity<ApiResponse<MahasiswaResponseDTO>> getMahasiswaById(@PathVariable Long id) {
+        return ResponseEntity.ok(new ApiResponse<>(true, "success", mahasiswaService.getMahasiswaById(id)));
     }
 
     @GetMapping("/query={query}")
-    public ResponseEntity<List<MahasiswaResponseDTO>> getMahasiswaByQuery(@PathVariable String query) {
-        var lowerCaseQuery = query.toLowerCase();
-        try {
-            return ResponseEntity.ok(mahasiswaService.getMahasiswaByQuery(lowerCaseQuery));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+    public ResponseEntity<ApiResponse<List<MahasiswaResponseDTO>>> getMahasiswaByQuery(@PathVariable String query) {
+        return ResponseEntity.ok(new ApiResponse<>(true, "success", mahasiswaService.getMahasiswaByQuery(query)));
     }
 
     @PostMapping
-    public ResponseEntity<String> createMahasiswa(@RequestBody MahasiswaRequestDTO request) {
-        try {
-            mahasiswaService.createMahasiswa(request);
-            return ResponseEntity.ok("success");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public ResponseEntity<ApiResponse<String>> createMahasiswa(@RequestBody MahasiswaRequestDTO request) {
+        mahasiswaService.createMahasiswa(request);
+        return ResponseEntity.ok(new ApiResponse<>(true, "success", "success create new data Mahasiswa"));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateMahasiswa(@PathVariable Long id, @RequestBody MahasiswaRequestDTO requestDTO) {
-        try {
-            mahasiswaService.updateMahasiswa(id, requestDTO);
-            return ResponseEntity.ok("success update Mahasiswa with id " + id);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public ResponseEntity<ApiResponse<String>> updateMahasiswa(@PathVariable Long id, @RequestBody MahasiswaRequestDTO requestDTO) {
+        mahasiswaService.updateMahasiswa(id, requestDTO);
+        return ResponseEntity.ok(new ApiResponse<>(true, "success", "success update Mahasiswa with id " + id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteMahasiswaById(@PathVariable Long id) {
-        try {
-            mahasiswaService.deleteMahasiswaById(id);
-            return ResponseEntity.ok("Success delete with id: " + id);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete");
-        }
+    public ResponseEntity<ApiResponse<String>> deleteMahasiswaById(@PathVariable Long id) {
+        mahasiswaService.deleteMahasiswaById(id);
+        return ResponseEntity.ok(new ApiResponse<>(true, "success", "Success delete with id: " + id));
     }
 }
 
