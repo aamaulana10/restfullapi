@@ -95,10 +95,3 @@ public class JurusanController {
         }
     }
 }
-
-// ide : bikin aplikasi pencarian ingredient / resep makanan
-// unik point selling: user bisa cari resep dengan cara foto bahan bahan nya aja, misal foto dari
-// kulkas
-
-// gimmik nya search by foto, jadi praktis
-//
