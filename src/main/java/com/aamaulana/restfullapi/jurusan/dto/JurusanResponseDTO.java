@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+import java.io.Serializable;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JurusanResponseDTO {
+@Data
+public class JurusanResponseDTO implements Serializable {
     Long id;
     String jurusanName;
 }

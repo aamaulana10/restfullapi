@@ -3,6 +3,7 @@ package com.aamaulana.restfullapi.jurusan.controller;
 import com.aamaulana.restfullapi.common.response.ApiResponse;
 import com.aamaulana.restfullapi.jurusan.dto.JurusanRequestDTO;
 import com.aamaulana.restfullapi.jurusan.dto.JurusanResponseDTO;
+import com.aamaulana.restfullapi.jurusan.model.Jurusan;
 import com.aamaulana.restfullapi.jurusan.service.JurusanService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -23,7 +24,8 @@ public class JurusanController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<JurusanResponseDTO>>> getAllJurusan() {
-        return ResponseEntity.ok(new ApiResponse<>(true, "success", jurusanService.getAllJurusan()));
+        List<JurusanResponseDTO> jurusanResponseDTO = jurusanService.getAllJurusan();
+        return ResponseEntity.ok(new ApiResponse<>(true, "success", jurusanResponseDTO));
     }
 
     @GetMapping("/id={id}")
