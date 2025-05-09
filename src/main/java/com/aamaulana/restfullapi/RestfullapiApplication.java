@@ -10,7 +10,6 @@ public class RestfullapiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestfullapiApplication.class, args);
-		System.out.println("i am running perfectly");
 	}
 
 }
