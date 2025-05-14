@@ -113,7 +113,7 @@ public class JurusanService {
      * Delete all Jurusan list cache.
      */
     public void deleteAllJurusanCache() {
-        redisCacheUtil.deleteCache("jurusanList::all");
+        redisCacheUtil.deleteCache(AppConstant.REDIS_GET_JURUSAN_LIST);
     }
 
     /**
