@@ -27,11 +27,11 @@ public class RedisCacheUtil {
         }
     }
 
-    public <T> T getCachedValue(String key, Class<T> clazz) {
+    public <T> T getCachedValue(String key, Class<T> className) {
         try {
             String redisData = redisTemplate.opsForValue().get(key);
             if (redisData != null) {
-                return objectMapper.readValue(redisData, clazz);
+                return objectMapper.readValue(redisData, className);
             }
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Failed to deserialize JSON to object", e);
