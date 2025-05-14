@@ -21,8 +21,7 @@ spring:
       ttl:
 
 app:
-  cache:
-    redis-ttl-in-seconds: 5
+  redis-ttl-in-second: 60
 
 #logging:
 #  level:
